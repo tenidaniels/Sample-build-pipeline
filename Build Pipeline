@@ -1,0 +1,25 @@
+pool:
+  name: SomeAgentPoolName
+  demands:
+  - msbuild
+
+steps:
+- task: MSBuild@1
+  displayName: 'Build solution ConsoleAppExample/ConsoleAppExample.sln'
+  inputs:
+    solution: ConsoleAppExample/ConsoleAppExample.sln
+    msbuildVersion: 15.0
+    msbuildArchitecture: x64
+    msbuildArguments: '/p:Configuration=Debug /p:Platform="Any CPU"'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: ConsoleAppExample/ConsoleApp1/bin/Debug/net48
+    Contents: ConsoleAppExample.exe
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: ExampleBuild'
+  inputs:
+    ArtifactName: ExampleBuild
