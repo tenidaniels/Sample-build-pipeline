@@ -1,0 +1,6 @@
+steps:
+- task: BatchScript@1
+  displayName: 'Run script $(System.DefaultWorkingDirectory)/Example-Build/ExampleBuild/ConsoleAppExample.exe'
+  inputs:
+    filename: '$(System.DefaultWorkingDirectory)/Example-Build/ExampleBuild/ConsoleAppExample.exe'
+    arguments: '"some" "application" "arguments" '
